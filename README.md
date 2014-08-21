@@ -6,7 +6,7 @@ Emulate background-size for IE6, IE7, IE8 and IE9 in quirks mode.
 I suffered to much from IE8 not supporting it and decided to change that.
 Then I accidentaly run into https://github.com/louisremi/background-size-polyfill project that adds support of background-size via adding -ms-behavior: url(/backgroundsize.min.htc); into element together with background-size.
 
-Sadly, it didn't worked in some cases, like IE8 in quirks mode. Also, as I though htc solution were very uncomfortable.
+Sadly, it didn't worked in some cases, like IE8 in quirks mode. Also, also, I though that htc solution were very uncomfortable.
 
 I decided to write own *.js library that would be much simplier to use, via simple referencing lib.
 
@@ -15,13 +15,16 @@ I TELLING EVERYONE that I used IDEAS from background-size-polyfill, but coded EV
 Now I ready to share that lib with everyone.
 
 HOW TO SETUP:
+
 Simply add `<script type = "text/javascript" src = "background_size_emu.js"></script>` to your page and it will solve all problems for you!
 
 HOW IT WORKS:
+
 It periodically scans for DOM elements changes and if element with background-size found, it inserts into it DIV with IMG inside.
 It reacts to window resizes and fix image size.
 
-WHAT IT CAN AND WHAT IT CAN'T
+WHAT IT CAN AND WHAT IT CAN'T:
+
 It can work in two modes - "the right one" and "the bugged one".
 The difference is...
 "The right one" works for TD and DIV only (if background-size set for that elements)
