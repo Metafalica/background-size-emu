@@ -45,6 +45,8 @@ It can check at startup IE version and disable self if it IE >= 9. However, it w
 
 It support element dynamic size changes (when no page resize event is fired)
 
+It support body as background target.
+
 It can't emulate background-size for elemets that can't have children and TR in any modes.
 
 It does not support background-repeat, so only single image is placed in target element
