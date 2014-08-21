@@ -1,0 +1,46 @@
+<html style="height: 100%;">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset = windows-1251' />
+    <title>test bg</title>
+    <script type="text/javascript" src = "background_size_emu.js"></script>
+    <script type = "text/javascript">
+        function showBodyInnerHTML()
+        {
+            var inner_html = document.body.innerHTML;
+        }
+
+        function createDivDyn()
+        {
+            document.getElementById('test_td').innerHTML = "<div style = 'width: 100%; height: 100%; background-image: url(storage/test_bg.png); background-size: contain; background-position: left bottom; background-repeat: no-repeat;'>test msg</div>";
+        }
+    </script>
+</head>
+<body style="height: 100%; margin: 0px;">
+    <table id = "e1" style="width: 100%; height: 100%;" border = "1">
+        <tr id = "e2">
+            <td id = "e3" align="center" valign="middle" style = "height: 70%;">
+                <div id='div_0' style = "width: 50%; height: 100%; border: dashed; background-size: contain; background-repeat: no-repeat;
+                    background-position: center center; background-image: url(storage/f_ie8.png);">test msg
+                </div>
+            </td>
+        </tr>
+        <tr id = "e5">
+            <td id = "e6" align="center" valign="middle" style = "height: 10%;">
+                <input type="button" id = "e7" value="Change BG IMG" onclick="document.getElementById('div_0').style.backgroundImage = 'url(storage/f_ms.png)';" />
+                <input type="button" id = "e8" value="Clear BG IMG" onclick="document.getElementById('div_0').style.backgroundImage = '';" />
+                <input type="button" id = "e9" value="Change BG SIZE" onclick="document.getElementById('div_0').style.backgroundSize = '50% 50%';" />
+                <input type="button" id = "e10" value="Change BG POS" onclick="document.getElementById('div_0').style.backgroundPosition = '50px 50%';" />
+                <input type="button" id = "e11" value="Create div dynamically" onclick = "createDivDyn();" />
+                <input type="button"  value="Modify upper TD height" onclick = "document.getElementById('e3').style.height = '50%';" />
+                <br />
+                <span id = "test_span" style = "background-image: url(storage/test_bg.png); background-size: contain; background-repeat: no-repeat; background-position: center center;">text in span</span>
+                <br />
+                <p id = "test_p" style = "display: inline;  background-image: url(storage/test_bg.png); background-size: 100% 100%; background-repeat: no-repeat; background-position: center center;">text in p</p>
+            </td>
+        </tr>
+        <tr id = "e12">
+            <td id = "test_td" align="center" valign="middle" style = "height: 20%;"></td>
+        </tr>
+    </table>    
+</body>
+</html>
