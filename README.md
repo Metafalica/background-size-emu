@@ -1,7 +1,51 @@
-background-size-emu
-===================
-
-Emulate background-size for IE6, IE7, IE8 and IE9 in quirks mode.
-
-<b>All needed info is in readme.html.</b>
-You can also visit http://bg-sz-emu.somee.com/ for a live example.
+<center><b>background-size-emu readme<br />===================<br />The JS library that emulates background-size for IE6, IE7, IE8 and IE9 in quirks mode.</b></center>
+<br />
+<b>Description:</b><br />
+I suffered to much from IE8 not supporting background-size and decided to change that.<br />
+Then I accidentally run into <a href = "https://github.com/louisremi/background-size-polyfill">https://github.com/louisremi/background-size-polyfill</a> project, that adds support of background-size via adding <b>-ms-behavior: url(/backgroundsize.min.htc);</b> into element together with <b>background-size</b>.<br />
+Sadly, it didn't worked in some cases, like IE8 in quirks mode. Also, I though that <b>htc</b> solution were very uncomfortable.<br />
+<br />
+I decided to write own *.js library that would be much simpler to use, via referencing lib.<br />
+I TELLING EVERYONE that I used IDEAS from background-size-polyfill, but coded EVERYTHING in my own way, so you can't really tell that I stole someone's code. My code is similar to background-size-polyfill code in around 10% (algorithm for inner image position calculation).<br />
+<br />
+Now I ready to share that lib with everyone.<br />
+<br />
+<b>How to setup:</b><br />
+Simply add <i>&lt;script type = "text/javascript" src = "background_size_emu.js"&gt;&lt;/script&gt;</i> to your page and it will solve all problems for you!<br />
+<br />
+<b>How it works:</b><br />
+It periodically scans for DOM elements changes and, if element with background-size found, it inserts into it DIV with IMG inside.<br />
+It reacts to window resizes and fix image size.<br />
+It reacts for elements sizes changes, without window size change<br />
+<br />
+<b>Library possibilities:</b><br />
+It can work in two modes - "the right one" and "the bugged one".<br />
+The difference is...<br />
+"The right one" works for TD and DIV only (if background-size set for that elements).<br />
+"The bugged one" works for most elements that can have children (P, SPAN, TABLE, TD, other not tested by me) and not work for TR. And... why it bugged? Oh... huh... well... you see this and that... Better to use "right one" if you planning to set background-size for DIVs and TDs only.<br />
+The default mode is bugged one.<br />
+To switch modes - open <b>background_size_emu.js</b> and set variable named <b>imageSizeCalculationModeIsBugged</b> to <b>true</b> or <b>false</b>.<br />
+<br />
+For some unknown for me reasons, if P display property is not set to <b>inline</b>, the background image appears in it's middle :O<br />
+<br />
+It can check IE version and disable self if it IE >= 9. However, it will not disable self if IE9 in quirks mode (also no support for <b>background-size</b>).<br />
+It support element dynamic size changes (when no page resize event is fired).<br />
+It support body as background target.<br />
+<br />
+It can't emulate background-size for elements that can't have children and TR in any modes.<br />
+It does not support background-repeat, so only single image is placed in target element.<br />
+<br />
+<b>Links:</b></br />
+Project GitHub: <a href = "https://github.com/Metafalica/background-size-emu">https://github.com/Metafalica/background-size-emu</a><br />
+Fast download: <a href = "https://github.com/Metafalica/background-size-emu/archive/master.zip">Here!</a><br />
+Test page (view in IE6 - IE8): <a href = "test.html">test.html</a><br />
+<br />
+<b>Donations:</b><br />
+If you found my library useful and it saved your time and efforts, please, consider donating me something. Even 1 USD is fine :O<br />
+You know that... <b>gathering by single yarn from everyone can make the dress for poor one.</b><br />
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+	<input type="hidden" name="cmd" value="_s-xclick">
+	<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+	<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+	<img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">
+</form>
