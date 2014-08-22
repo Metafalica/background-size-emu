@@ -35,7 +35,7 @@ It support body as background target.<br />
 It can't emulate background-size for elements that can't have children and TR in any modes.<br />
 It does not support background-repeat, so only single image is placed in target element.<br />
 <br />
-<b>Links:</b></br />
+<b>Links:</b><br />
 Project page: <a href = "http://bg-sz-emu.somee.com">http://bg-sz-emu.somee.com</a><br />
 Live demo page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/test.html">http://bg-sz-emu.somee.com/test.html</a><br />
 <br />
