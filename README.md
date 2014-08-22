@@ -1,4 +1,4 @@
-<b>background-size-emu readme<br />===================<br />The JS library that emulates background-size for IE6, IE7, IE8 and IE9 in quirks mode.</b>
+<b>background-size-emu readme<br />===================<br />The JS library that emulates background-size for IE6, IE7, IE8 and IE9 in quirks mode.</b><br />
 <br />
 <b>Description:</b><br />
 I suffered to much from IE8 not supporting background-size and decided to change that.<br />
@@ -36,9 +36,8 @@ It can't emulate background-size for elements that can't have children and TR in
 It does not support background-repeat, so only single image is placed in target element.<br />
 <br />
 <b>Links:</b></br />
-Project GitHub: <a href = "https://github.com/Metafalica/background-size-emu">https://github.com/Metafalica/background-size-emu</a><br />
-Fast download: <a href = "https://github.com/Metafalica/background-size-emu/archive/master.zip">Here!</a><br />
-Test page (view in IE6 - IE8): <a href = "test.html">test.html</a><br />
+Project page: <a href = "http://bg-sz-emu.somee.com">http://bg-sz-emu.somee.com</a><br />
+Live demo page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/test.html">http://bg-sz-emu.somee.com/test.html</a><br />
 <br />
 <b>Donations:</b><br />
 If you found my library useful and it saved your time and efforts, please, consider donating me something. Even 1 USD is fine :O<br />
