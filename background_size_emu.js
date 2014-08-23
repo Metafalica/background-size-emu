@@ -118,7 +118,7 @@ function replaceBgImgFor(elem)
         prop_change_removed = true;
     }
 
-    var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image");
+    var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
     //var curr_backgroundSize = elem.style.backgroundSize || elem.style.getAttribute("background-size");
 
     if (stringContains(prev_backgroundImage, transparentSinglePixel))
@@ -164,6 +164,9 @@ function continueBgReplaceFor(elem, prev_backgroundImage, img_natural_size)
     }
 
     elem.style.backgroundImage = transparentSinglePixel;
+
+    if ("background" in elem)
+        elem.background = transparentSinglePixel;
 
     if (!elem.style.position || elem.style.position == "static")
         elem.style.position = "relative";
@@ -385,7 +388,7 @@ function getElemBgPos(elem)
         return { h_pos: h_pos_, v_pos: v_pos_ };
     }
     else
-        return { h_pos: "0%", v_pos: "0%" };
+        return { h_pos: { value: "0", is_percents: true }, v_pos: { value: "0", is_percents: true } };
 }
 
 function stringContains(str, suffix)
