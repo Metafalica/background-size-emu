@@ -429,6 +429,9 @@ function elemCanHaveDivAsChildren(elem)
     if (elem.tagName.toLowerCase() == "tr") //hacky avoid of elemens that will become bugged after adding div
         return false;
 
+    if (!imageSizeCalculationModeIsBugged && elem.tagName.toLowerCase() == "table") //not supported in right mode.
+        return false;
+
     var div = document.createElement("div");
     div.style.display = "none";
     var check_result = true;
