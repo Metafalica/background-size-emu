@@ -1,11 +1,15 @@
 ﻿/*
 	Library homepage: https://github.com/Metafalica/background-size-emu
 
-	BgSzEmu.prototype library is result of my intellectual work.
+	This library is result of my intellectual work.
 	I (the author, named Konstantin Izofatov, living in Russia, metafalica@gmx.com) grant you (the user) permissions
 	to use BgSzEmu.prototype library in any kind of projects (free, paid, etc) and modify it in any way.
-	However, it's forbidden to sell BgSzEmu.prototype library alone.	
-	BgSzEmu.prototype notice should not be removed.
+	However, it's forbidden to sell this library alone (as it is).	
+	
+	This library provided "AS IS". I am not responsible for any damages that you can receive from using it.
+	Use it on your own risk.
+	
+	This notice should not be removed.
 */
 
 function BgSzEmu()
