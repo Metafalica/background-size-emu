@@ -1,90 +1,92 @@
 ﻿/*
 	Library homepage: https://github.com/Metafalica/background-size-emu
 
-	This library is result of my intellectual work.
+	BgSzEmu.prototype library is result of my intellectual work.
 	I (the author, named Konstantin Izofatov, living in Russia, metafalica@gmx.com) grant you (the user) permissions
-	to use this library in any kind of projects (free, paid, etc) and modify it in any way.
-	However, it's forbidden to sell this library alone.	
-	This notice should not be removed.
+	to use BgSzEmu.prototype library in any kind of projects (free, paid, etc) and modify it in any way.
+	However, it's forbidden to sell BgSzEmu.prototype library alone.	
+	BgSzEmu.prototype notice should not be removed.
 */
 
-var imageSizeCalculationModeIsBugged = true;
-var elemsOnPrevCheck = null;
-//that gif from background-size-polyfill is sure shorter... but meh... it's not mine :P
-var transparentSinglePixel = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4zjOaXUAAAAA1JREFUGFdjYGBgYAAAAAUAAYoz4wAAAAAASUVORK5CYII=)";
-scanElems();
-
-function scanElems()
+function BgSzEmu()
 {
-    if (!IsIE() || !IsBadIE())
+	BgSzEmu.prototype.imageSizeCalculationModeIsBugged = true;
+	BgSzEmu.prototype.elemsOnPrevCheck = null;
+	//that gif from background-size-polyfill is sure shorter... but meh... it's not mine :P
+	BgSzEmu.prototype.transparentSinglePixel = "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwwAADsMBx2+oZAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4zjOaXUAAAAA1JREFUGFdjYGBgYAAAAAUAAYoz4wAAAAAASUVORK5CYII=)";
+}
+
+BgSzEmu.prototype.scanElems = function()
+{
+    if (!BgSzEmu.prototype.IsIE() || !BgSzEmu.prototype.IsBadIE())
         return;
 
     if (document.body)
     {
         var curr_elems = new Array();
-        getElemsIn(null, curr_elems);
+        BgSzEmu.prototype.getElemsIn(null, curr_elems);
 
-        if (!elemsOnPrevCheck)
+        if (!BgSzEmu.prototype.elemsOnPrevCheck)
         {
-            elemsOnPrevCheck = curr_elems.slice(0);
-            activateBgSzFixer();
+            BgSzEmu.prototype.elemsOnPrevCheck = curr_elems.slice(0);
+            BgSzEmu.prototype.activateBgSzFixer();
         }
         else
         {
             for (var i = 0; i < curr_elems.length; i++)
-                if (isObjectInArray(curr_elems[i], elemsOnPrevCheck))
+                if (BgSzEmu.prototype.isObjectInArray(curr_elems[i], BgSzEmu.prototype.elemsOnPrevCheck))
                 {
                     if (!curr_elems[i].junkData)
                         continue;
 
-                    var available_size = getAvailableAreaSizeIn(curr_elems[i], imageSizeCalculationModeIsBugged);
+                    var available_size = BgSzEmu.prototype.getAvailableAreaSizeIn(curr_elems[i], BgSzEmu.prototype.imageSizeCalculationModeIsBugged);
 
                     if (curr_elems[i].junkData.lastSize && (curr_elems[i].junkData.lastSize.width != available_size.width || curr_elems[i].junkData.lastSize.height != available_size.height))
-                        fixBgFor(curr_elems[i]);
+                        BgSzEmu.prototype.fixBgFor(curr_elems[i]);
                 }
                 else
                 {
                     var curr_bg_img = curr_elems[i].style.backgroundImage || curr_elems[i].style.getAttribute("background-image");
 
                     if (curr_bg_img && !curr_elems[i].junkData)
-                        fixBgFor(curr_elems[i]);
+                        BgSzEmu.prototype.fixBgFor(curr_elems[i]);
                 }
 
-            elemsOnPrevCheck = curr_elems.slice(0);
+            BgSzEmu.prototype.elemsOnPrevCheck = curr_elems.slice(0);
         }
     }
 
-    setTimeout(scanElems, 500);
-}
+    setTimeout(BgSzEmu.prototype.scanElems, 500);
+};
 
-function activateBgSzFixer()
+BgSzEmu.prototype.activateBgSzFixer = function()
 {
-    if (!IsIE() || !IsBadIE())
+    if (!BgSzEmu.prototype.IsIE() || !BgSzEmu.prototype.IsBadIE())
         return;
 
-    fixBgsRecursiveIn(null);
-    window.onresize = handleResize;
-}
+    BgSzEmu.prototype.fixBgsRecursiveIn(null);
+    window.onresize = BgSzEmu.prototype.handleResize;
+};
 
-function fixBgsRecursiveIn(start_elem)
+BgSzEmu.prototype.fixBgsRecursiveIn = function (start_elem)
 {
     var curr_elem = start_elem ? start_elem : document.body;
 
     var bg_sz = curr_elem.style.backgroundSize || curr_elem.style.getAttribute("background-size");
 
     if (bg_sz)
-        fixBgFor(curr_elem);
+        BgSzEmu.prototype.fixBgFor(curr_elem);
 
     for (var i = 0; i < curr_elem.children.length; i++)
-        fixBgsRecursiveIn(curr_elem.children[i]);
-}
+        BgSzEmu.prototype.fixBgsRecursiveIn(curr_elem.children[i]);
+};
 
-function handleResize()
+BgSzEmu.prototype.handleResize = function ()
 {
-    fixBgsRecursiveIn(null);
-}
+    BgSzEmu.prototype.fixBgsRecursiveIn(null);
+};
 
-function handlePropertyChange()
+BgSzEmu.prototype.handlePropertyChange = function ()
 {
     var evt = window.event;
     var elem = evt.target || evt.srcElement;
@@ -96,18 +98,18 @@ function handlePropertyChange()
     {
         var bg_img = elem.style.backgroundImage || elem.style.getAttribute("background-image");
 
-        if (stringContains(bg_img, transparentSinglePixel))
+        if (BgSzEmu.prototype.stringContains(bg_img, BgSzEmu.prototype.transparentSinglePixel))
             return;
         else
-            replaceBgImgFor(elem);
+            BgSzEmu.prototype.replaceBgImgFor(elem);
     }
-    else if (startsWith(evt.propertyName, "style.background"))
-        replaceBgImgFor(elem);
-}
+    else if (BgSzEmu.prototype.startsWith(evt.propertyName, "style.background"))
+        BgSzEmu.prototype.replaceBgImgFor(elem);
+};
 
-function replaceBgImgFor(elem)
+BgSzEmu.prototype.replaceBgImgFor = function(elem)
 {
-    if (!elemCanHaveDivAsChildren(elem)) //can't deal with tags that do not support children
+    if (!BgSzEmu.prototype.elemCanHaveDivAsChildren(elem)) //can't deal with tags that do not support children
         return;
 
     var prop_change_removed = false;
@@ -121,12 +123,12 @@ function replaceBgImgFor(elem)
     var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
     //var curr_backgroundSize = elem.style.backgroundSize || elem.style.getAttribute("background-size");
 
-    if (stringContains(prev_backgroundImage, transparentSinglePixel))
+    if (BgSzEmu.prototype.stringContains(prev_backgroundImage, BgSzEmu.prototype.transparentSinglePixel))
     {
-        fixBgFor(elem);
+        BgSzEmu.prototype.fixBgFor(elem);
 
         if (prop_change_removed)
-            elem.onpropertychange = handlePropertyChange;
+            elem.onpropertychange = BgSzEmu.prototype.handlePropertyChange;
 
         return;
     }
@@ -142,15 +144,15 @@ function replaceBgImgFor(elem)
         }
 
         if (prop_change_removed)
-            elem.onpropertychange = handlePropertyChange;
+            elem.onpropertychange = BgSzEmu.prototype.handlePropertyChange;
 
         return;
     }
 
-    getImgNaturalSizeAndPassToCallback(elem, prev_backgroundImage, continueBgReplaceFor);
-}
+    BgSzEmu.prototype.getImgNaturalSizeAndPassToCallback(elem, prev_backgroundImage, BgSzEmu.prototype.continueBgReplaceFor);
+};
 
-function continueBgReplaceFor(elem, prev_backgroundImage, img_natural_size)
+BgSzEmu.prototype.continueBgReplaceFor = function (elem, prev_backgroundImage, img_natural_size)
 {
     var prev_zIndex = elem.style.zIndex;
     var prev_position = elem.style.position;
@@ -158,15 +160,15 @@ function continueBgReplaceFor(elem, prev_backgroundImage, img_natural_size)
     if (img_natural_size.width == 0 && img_natural_size.height == 0) //bad img url?
     {
         if (prop_change_removed)
-            elem.onpropertychange = handlePropertyChange;
+            elem.onpropertychange = BgSzEmu.prototype.handlePropertyChange;
 
         return;
     }
 
-    elem.style.backgroundImage = transparentSinglePixel;
+    elem.style.backgroundImage = BgSzEmu.prototype.transparentSinglePixel;
 
     if ("background" in elem)
-        elem.background = transparentSinglePixel;
+        elem.background = BgSzEmu.prototype.transparentSinglePixel;
 
     if (!elem.style.position || elem.style.position == "static")
         elem.style.position = "relative";
@@ -190,7 +192,7 @@ function continueBgReplaceFor(elem, prev_backgroundImage, img_natural_size)
     div.style.visibility = img.style.visibility = "inherit";
 
     img.alt = "";
-    img.src = getPurePathFrom(prev_backgroundImage);
+    img.src = BgSzEmu.prototype.getPurePathFrom(prev_backgroundImage);
 
     if (elem.junkData)
     {
@@ -208,14 +210,14 @@ function continueBgReplaceFor(elem, prev_backgroundImage, img_natural_size)
     else
         elem.appendChild(div);
 
-    fixBgFor(elem);
+    BgSzEmu.prototype.fixBgFor(elem);
 
-    elem.onpropertychange = handlePropertyChange;
-}
+    elem.onpropertychange = BgSzEmu.prototype.handlePropertyChange;
+};
 
-function getImgNaturalSizeAndPassToCallback(elem, img_path, callback)
+BgSzEmu.prototype.getImgNaturalSizeAndPassToCallback = function (elem, img_path, callback)
 {
-    var pure_path = getPurePathFrom(img_path);
+    var pure_path = BgSzEmu.prototype.getPurePathFrom(img_path);
 
     var img = new Image();
 
@@ -226,9 +228,9 @@ function getImgNaturalSizeAndPassToCallback(elem, img_path, callback)
     };
 
     img.src = pure_path;
-}
+};
 
-function getAvailableAreaSizeIn(elem, get_elem_size_instead_of_inner_div)
+BgSzEmu.prototype.getAvailableAreaSizeIn = function (elem, get_elem_size_instead_of_inner_div)
 {
     var sz = null;
 
@@ -238,23 +240,23 @@ function getAvailableAreaSizeIn(elem, get_elem_size_instead_of_inner_div)
         sz = { width: elem.junkData.inner_div.offsetWidth, height: elem.junkData.inner_div.offsetHeight };
 
     return sz;
-}
+};
 
-function fixBgFor(elem)
+BgSzEmu.prototype.fixBgFor = function (elem)
 {
     var junkData = elem.junkData;
     var bg_sz = elem.style.backgroundSize || elem.style.getAttribute("background-size");
 
     if (junkData)
     {
-        var available_size = getAvailableAreaSizeIn(elem, imageSizeCalculationModeIsBugged);
+        var available_size = BgSzEmu.prototype.getAvailableAreaSizeIn(elem, BgSzEmu.prototype.imageSizeCalculationModeIsBugged);
         var div_width = available_size.width;
         var div_height = available_size.height;
         var divRatio = div_width / div_height;
 
         elem.junkData.lastSize = available_size;
 
-        if (imageSizeCalculationModeIsBugged)
+        if (BgSzEmu.prototype.imageSizeCalculationModeIsBugged)
         {
             junkData.inner_div.style.width = div_width + "px";
             junkData.inner_div.style.height = div_height + "px";
@@ -271,7 +273,7 @@ function fixBgFor(elem)
         var new_img_width;
         var new_img_height;
 
-        var elem_bg_pos = getElemBgPos(elem);
+        var elem_bg_pos = BgSzEmu.prototype.getElemBgPos(elem);
 
         if (bg_sz == "cover" || bg_sz == "contain")
         {
@@ -318,10 +320,10 @@ function fixBgFor(elem)
         }
     }
     else if (bg_sz)
-        replaceBgImgFor(elem);
-}
+        BgSzEmu.prototype.replaceBgImgFor(elem);
+};
 
-function parseBgPosVal(word)
+BgSzEmu.prototype.parseBgPosVal = function (word)
 {
     var map = new Array();
     map["left"] = "0.0";
@@ -332,35 +334,35 @@ function parseBgPosVal(word)
 
     if (word in map)
         return { value: map[word], is_percents: true };
-    else if (endsWith(word, "%"))
+    else if (BgSzEmu.prototype.endsWith(word, "%"))
         return { value: (word.substr(0, word.length - 1) / 100), is_percents: true };
 
     return { value: word, is_percents: false };
-}
+};
 
 //common functions
-function IsIE()
+BgSzEmu.prototype.IsIE = function ()
 {
     return navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0;
-}
+};
 
-function IsBadIE()
+BgSzEmu.prototype.IsBadIE = function ()
 {
     return "attachEvent" in window && !("addEventListener" in window); //detects ie < 9 and ie9 in quirks mode
-}
+};
 
-function getElemsIn(start_elem, curr_elems)
+BgSzEmu.prototype.getElemsIn = function (start_elem, curr_elems)
 {
     var curr_elem = start_elem ? start_elem : document.body;
 
     for (var i = 0; i < curr_elem.children.length; i++)
     {
         curr_elems.push(curr_elem.children[i]);
-        getElemsIn(curr_elem.children[i], curr_elems);
+        BgSzEmu.prototype.getElemsIn(curr_elem.children[i], curr_elems);
     }
-}
+};
 
-function getPurePathFrom(str_path)
+BgSzEmu.prototype.getPurePathFrom = function (str_path)
 {
     var final_str = str_path;
 
@@ -373,63 +375,63 @@ function getPurePathFrom(str_path)
     }
 
     return final_str;
-}
+};
 
-function getElemBgPos(elem)
+BgSzEmu.prototype.getElemBgPos = function (elem)
 {
     var bg_pos = elem.style.backgroundPosition || elem.style.getAttribute("background-position");
 
     if (bg_pos)
     {
         var splitted_pos = bg_pos.split(" ");
-        var h_pos_ = (splitted_pos[0] ? parseBgPosVal(splitted_pos[0]) : "0%");
-        var v_pos_ = (splitted_pos[1] ? parseBgPosVal(splitted_pos[1]) : "0%");
+        var h_pos_ = (splitted_pos[0] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[0]) : "0%");
+        var v_pos_ = (splitted_pos[1] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[1]) : "0%");
 
         return { h_pos: h_pos_, v_pos: v_pos_ };
     }
     else
         return { h_pos: { value: "0", is_percents: true }, v_pos: { value: "0", is_percents: true } };
-}
+};
 
-function stringContains(str, suffix)
+BgSzEmu.prototype.stringContains = function (str, suffix)
 {
     if (!str)
         return false;
 
     return str.indexOf(suffix) > -1;
-}
+};
 
-function startsWith(str, suffix)
+BgSzEmu.prototype.startsWith = function (str, suffix)
 {
     if (!str)
         return false;
 
     return str.substring(0, suffix.length) === suffix;
-}
+};
 
-function endsWith(str, suffix)
+BgSzEmu.prototype.endsWith = function (str, suffix)
 {
     if (!str)
         return false;
 
     return str.indexOf(suffix, str.length - suffix.length) >= 0;
-}
+};
 
-function isObjectInArray(obj, arr)
+BgSzEmu.prototype.isObjectInArray = function (obj, arr)
 {
     for (var i = 0; i < arr.length; i++)
         if (arr[i] == obj)
             return true;
 
     return false;
-}
+};
 
-function elemCanHaveDivAsChildren(elem)
+BgSzEmu.prototype.elemCanHaveDivAsChildren = function (elem)
 {
     if (elem.tagName.toLowerCase() == "tr") //hacky avoid of elemens that will become bugged after adding div
         return false;
 
-    if (!imageSizeCalculationModeIsBugged && elem.tagName.toLowerCase() == "table") //not supported in right mode.
+    if (!BgSzEmu.prototype.imageSizeCalculationModeIsBugged && elem.tagName.toLowerCase() == "table") //not supported in right mode.
         return false;
 
     var div = document.createElement("div");
@@ -440,10 +442,13 @@ function elemCanHaveDivAsChildren(elem)
     catch (exc) { check_result = false; }
     finally
     {
-        if (isObjectInArray(div, elem.children))
+        if (BgSzEmu.prototype.isObjectInArray(div, elem.children))
             elem.removeChild(div);
     }
 
     return check_result;
-}
+};
 //common functions end
+
+var bg_sz_emu = new BgSzEmu();
+bg_sz_emu.scanElems();
