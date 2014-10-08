@@ -38,6 +38,7 @@ It does not support background-repeat, so only single image is placed in target 
 <b>Links:</b><br />
 Project page: <a href = "http://bg-sz-emu.somee.com">http://bg-sz-emu.somee.com</a><br />
 Live demo page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/test.html">http://bg-sz-emu.somee.com/test.html</a><br />
+Supported elements page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/supported_elements.html">http://bg-sz-emu.somee.com/supported_elements.html</a><br />
 <br />
 <b>Donations:</b><br />
 If you found my library useful and it saved your time and efforts, please, consider donating me something. Even 1 USD is fine :O<br />
