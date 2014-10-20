@@ -117,6 +117,11 @@ This notice should not be removed.
     {
         if (!BgSzEmu.prototype.elemCanHaveDivAsChildren(elem)) //can't deal with tags that do not support children
             return;
+			
+        var e_avl_sz = BgSzEmu.prototype.getAvailableAreaSizeIn(elem, BgSzEmu.prototype.imageSizeCalculationModeIsBugged)
+
+        if (e_avl_sz.width == 0 || e_avl_sz.height == 0)
+            return;			
 
         var prop_change_removed = false;
 
