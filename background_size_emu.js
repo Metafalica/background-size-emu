@@ -247,7 +247,7 @@ This notice should not be removed.
         var sz = null;
 
         if (get_elem_size_instead_of_inner_div || !elem.junkData)
-            sz = { width: elem.clientWidth || elem.offsetWidth || elem.scrollWidth, height: elem.clientHeight || elem.offsetHeight || elem.scrollHeight };
+            sz = { width: elem.clientWidth || elem.offsetWidth/* || elem.scrollWidth*/, height: elem.clientHeight || elem.offsetHeight/* || elem.scrollHeight*/ };
         else if (elem.junkData)
             sz = { width: elem.junkData.inner_div.offsetWidth, height: elem.junkData.inner_div.offsetHeight };
 
@@ -332,7 +332,7 @@ This notice should not be removed.
                 else if (t_width.toLowerCase() == "auto")
                 {
                     elem.junkData.inner_img.style.height = t_height;
-                    var just_set_height = elem.junkData.inner_img.clientHeight || elem.junkData.inner_img.offsetHeight || elem.junkData.inner_img.scrollHeight;
+                    var just_set_height = elem.junkData.inner_img.clientHeight || elem.junkData.inner_img.offsetHeight/* || elem.junkData.inner_img.scrollHeight*/;
                     var width_to_set = (img_nat_width * just_set_height) / img_nat_height;
 
                     if (!width_to_set || width_to_set < 1)
@@ -343,7 +343,7 @@ This notice should not be removed.
                 else if (t_height.toLowerCase() == "auto")
                 {
                     elem.junkData.inner_img.style.width = t_width;
-                    var just_set_width = elem.junkData.inner_img.clientWidth || elem.junkData.inner_img.offsetWidth || elem.junkData.inner_img.scrollWidth;
+                    var just_set_width = elem.junkData.inner_img.clientWidth || elem.junkData.inner_img.offsetWidth/* || elem.junkData.inner_img.scrollWidth*/;
                     var height_to_set = (just_set_width * img_nat_height) / img_nat_width;
 
                     if (!height_to_set || height_to_set < 1)
