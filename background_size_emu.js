@@ -117,11 +117,11 @@ This notice should not be removed.
     {
         if (!BgSzEmu.prototype.elemCanHaveDivAsChildren(elem)) //can't deal with tags that do not support children
             return;
-			
+
         var e_avl_sz = BgSzEmu.prototype.getAvailableAreaSizeIn(elem, BgSzEmu.prototype.imageSizeCalculationModeIsBugged)
 
         if (e_avl_sz.width == 0 || e_avl_sz.height == 0)
-            return;			
+            return;
 
         var prop_change_removed = false;
 
@@ -133,6 +133,9 @@ This notice should not be removed.
 
         var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
         //var curr_backgroundSize = elem.style.backgroundSize || elem.style.getAttribute("background-size");
+
+        if (!startsWith(prev_backgroundImage, "url(")) //do not touch gradients
+            return;
 
         if (BgSzEmu.prototype.stringContains(prev_backgroundImage, BgSzEmu.prototype.transparentSinglePixel))
         {
