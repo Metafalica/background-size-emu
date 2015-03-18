@@ -80,7 +80,7 @@ This notice should not be removed.
 
         var bg_sz = curr_elem.style.backgroundSize || curr_elem.style.getAttribute("background-size");
 
-        if (bg_sz)
+        if (bg_sz && bg_sz.toLowerCase() != "auto auto")
             BgSzEmu.prototype.fixBgFor(curr_elem);
 
         for (var i = 0; i < curr_elem.children.length; i++)
