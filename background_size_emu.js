@@ -3,7 +3,7 @@ Library homepage: https://github.com/Metafalica/background-size-emu
 
 This library is result of my intellectual work.
 I (the author, named Konstantin Izofatov, living in Russia, metafalica@gmx.com) grant you (the user) permissions
-to use BgSzEmu.prototype library in any kind of projects (free, paid, etc) and modify it in any way.
+to use this library in any kind of projects (free, paid, etc) and modify it in any way.
 However, it's forbidden to sell this library alone (as it is).	
 	
 This library provided "AS IS". I am not responsible for any damages that you can receive from using it.
@@ -134,7 +134,7 @@ This notice should not be removed.
         var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
         //var curr_backgroundSize = elem.style.backgroundSize || elem.style.getAttribute("background-size");
 
-        if (!startsWith(prev_backgroundImage, "url(")) //do not touch gradients
+        if (!BgSzEmu.prototype.startsWith(prev_backgroundImage, "url(")) //do not touch gradients
             return;
 
         if (BgSzEmu.prototype.stringContains(prev_backgroundImage, BgSzEmu.prototype.transparentSinglePixel))
