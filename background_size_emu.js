@@ -1,4 +1,4 @@
-﻿/*
+/*
 Library homepage: https://github.com/Metafalica/background-size-emu
 
 This library is result of my intellectual work.
@@ -78,7 +78,7 @@ This notice should not be removed.
     {
         var curr_elem = start_elem ? start_elem : document.body;
 
-        var bg_sz = curr_elem.style.backgroundSize || curr_elem.style.getAttribute("background-size");
+        var bg_sz = curr_elem.style.backgroundSize || curr_elem.currentStyle.backgroundSize || curr_elem.style.getAttribute("background-size") || curr_elem.currentStyle.getAttribute("background-size");
 
         if (bg_sz && bg_sz.toLowerCase() != "auto auto")
             BgSzEmu.prototype.fixBgFor(curr_elem);
@@ -118,7 +118,7 @@ This notice should not be removed.
         if (!BgSzEmu.prototype.elemCanHaveDivAsChildren(elem)) //can't deal with tags that do not support children
             return;
 
-        var e_avl_sz = BgSzEmu.prototype.getAvailableAreaSizeIn(elem, BgSzEmu.prototype.imageSizeCalculationModeIsBugged)
+        var e_avl_sz = BgSzEmu.prototype.getAvailableAreaSizeIn(elem, BgSzEmu.prototype.imageSizeCalculationModeIsBugged);
 
         if (e_avl_sz.width == 0 || e_avl_sz.height == 0)
             return;
@@ -131,8 +131,7 @@ This notice should not be removed.
             prop_change_removed = true;
         }
 
-        var prev_backgroundImage = elem.style.backgroundImage || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
-        //var curr_backgroundSize = elem.style.backgroundSize || elem.style.getAttribute("background-size");
+        var prev_backgroundImage = elem.style.backgroundImage || elem.currentStyle.backgroundImage || elem.currentStyle.getAttribute("background-image") || elem.style.getAttribute("background-image") || elem.background || elem.getAttribute("background");
 
         if (!BgSzEmu.prototype.startsWith(prev_backgroundImage, "url(")) //do not touch gradients
             return;
@@ -184,10 +183,13 @@ This notice should not be removed.
         if ("background" in elem)
             elem.background = BgSzEmu.prototype.transparentSinglePixel;
 
-        if (!elem.style.position || elem.style.position == "static")
+		var stylePosition = elem.style.position || elem.currentStyle.position,
+			styleZIndex = elem.style.zIndex || elem.currentStyle.zIndex;
+
+        if (!stylePosition || stylePosition == "static")
             elem.style.position = "relative";
 
-        if (!elem.style.zIndex || elem.style.zIndex == "auto")
+        if (!styleZIndex || styleZIndex == "auto")
             elem.style.zIndex = 0;
 
         var div = document.createElement("div");
@@ -260,7 +262,7 @@ This notice should not be removed.
     BgSzEmu.prototype.fixBgFor = function (elem)
     {
         var junkData = elem.junkData;
-        var bg_sz = elem.style.backgroundSize || elem.style.getAttribute("background-size");
+		var bg_sz = elem.style.backgroundSize || elem.currentStyle.backgroundSize || elem.style.getAttribute("background-size") || elem.currentStyle.getAttribute("background-size");
 
         if (junkData)
         {
@@ -295,18 +297,18 @@ This notice should not be removed.
                 if ((bg_sz == "cover" && divRatio > imgRatio) || (bg_sz == "contain" && imgRatio > divRatio))
                 {
                     new_img_width = div_width;
-                    new_img_height = (new_img_width * img_nat_height) / img_nat_width;
+                    new_img_height = new_img_width / imgRatio;
 
                     if (elem_bg_pos.v_pos.is_percents)
-                        new_img_top = Math.floor((div_height - div_width / imgRatio) * elem_bg_pos.v_pos.value) + "px";
+                        new_img_top = Math.floor((div_height - new_img_height) * elem_bg_pos.v_pos.value) + "px";
                 }
                 else
                 {
                     new_img_height = div_height;
-                    new_img_width = (img_nat_width * new_img_height) / img_nat_height;
+                    new_img_width = new_img_height * imgRatio;
 
                     if (elem_bg_pos.h_pos.is_percents)
-                        new_img_left = Math.floor((div_width - div_height * imgRatio) * elem_bg_pos.h_pos.value) + "px";
+                        new_img_left = Math.floor((div_width - new_img_width) * elem_bg_pos.h_pos.value) + "px";
                 }
 
                 //var img_width_diff = Math.abs(div_width - new_img_width);
@@ -424,18 +426,15 @@ This notice should not be removed.
 
     BgSzEmu.prototype.getElemBgPos = function (elem)
     {
-        var bg_pos = elem.style.backgroundPosition || elem.style.getAttribute("background-position");
+		var splitted_pos = Array(
+			elem.style.backgroundPositionX || elem.currentStyle.backgroundPositionX || elem.style.getAttribute("background-position-x") || elem.currentStyle.getAttribute("background-position-x"),
+			elem.style.backgroundPositionY || elem.currentStyle.backgroundPositionY || elem.style.getAttribute("background-position-y") || elem.currentStyle.getAttribute("background-position-y")
+		);
 
-        if (bg_pos)
-        {
-            var splitted_pos = bg_pos.split(" ");
-            var h_pos_ = (splitted_pos[0] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[0]) : "0%");
-            var v_pos_ = (splitted_pos[1] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[1]) : "0%");
+		var h_pos_ = (splitted_pos[0] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[0]) : { value: "0", is_percents: true });
+		var v_pos_ = (splitted_pos[1] ? BgSzEmu.prototype.parseBgPosVal(splitted_pos[1]) : { value: "0", is_percents: true });
 
-            return { h_pos: h_pos_, v_pos: v_pos_ };
-        }
-        else
-            return { h_pos: { value: "0", is_percents: true }, v_pos: { value: "0", is_percents: true} };
+		return { h_pos: h_pos_, v_pos: v_pos_ };
     };
 
     BgSzEmu.prototype.stringContains = function (str, suffix)
