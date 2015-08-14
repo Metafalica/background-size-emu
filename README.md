@@ -18,18 +18,13 @@ It periodically scans for DOM elements changes and, if element with background-s
 It reacts to window resizes and fix image size.<br />
 It reacts for elements sizes changes, without window size change<br />
 <br />
-<b>How it works:</b><br />
-It periodically scans for DOM elements changes and if element with background-size found, it inserts DIV with IMG inside into it.<br />
-It reacts to window resizes and fix image size.<br />
-It reacts for elements sizes changes, without window size change<br />
-<br />
 <b>Library possibilities:</b><br />
 It can check IE version and disable self if it IE >= 9. However, it will not disable self if IE9 in quirks mode (also no support for <b>background-size</b>).<br />
 It support element dynamic size changes (when no page resize event is fired).<br />
 It support body as background target.<br />
 P.S. For some unknown for me reasons, if P display property is not set to <b>inline</b>, the background image appears in it's middle :O<br />
 <br />
-<font color = "red">It can't emulate background-size for elements that can't have children and TR.</font><br />
+!>>>It can't emulate background-size for elements that can't have children and TR.<<<!<br />
 It does not support background-repeat, so only single image is placed in target element.<br />
 <br />
 <b>Links:</b><br />
