@@ -33,6 +33,5 @@ Live demo page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/test.h
 Supported elements page (view in IE6 - IE8): <a href = "http://bg-sz-emu.somee.com/supported_elements.html">http://bg-sz-emu.somee.com/supported_elements.html</a><br />
 <br />
 <b>Donations:</b><br />
-If you found my library useful and it saved your time and efforts, please, consider donating me something. Even 1 USD is fine :O<br />
-You know that... <b>gathering by single yarn from everyone can make the dress for poor one.</b><br />
+If you found my library useful and it saved your time and efforts, please, consider donating me something. Even 1 USD is fine :O<br /><br />
 <a href = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=metafalica%40gmx%2ecom&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">Donate with Paypal</a>
