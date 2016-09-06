@@ -1,0 +1,41 @@
+***This file is not part iof the background-size-emu libary and exist here only for temp period***
+
+/*Код выполняется в чужой проге (игре mmorpg) и показывает жизни выбранного монстра при нажатии на клавишу*/
+if (wParam == VK_F10)
+{
+									/*это адрес, по которому хранится имя перса*/
+	if (Scammers::IsInScammers((char*)0x0131B049)) //происходит проверка, находится ли имя игрока в списке мошенников (не буду же я давать такие крутые фичи ворам, хоть и игровым)
+		exit(0); //GAME OVER
+
+	unsigned long targets_hp_start = 0x01313A20; //адреса структур, в которых хранится инфа о монстрах
+	unsigned long offset = 468;
+	int* selected_target = (int*)0x0137FFDB; //там номер выбранной цели * 256
+	int* fight_flag = (int*)0x013127CD; //там флаг режима боя
+
+	if (*fight_flag == 0)
+	{
+		//ShowPopUpMessage - это указатель на функцию в памяти игры, которая выводит сообщения
+		((int (__cdecl*)(const char *, char))ShowPopUpMessage)("Вы не в бою. В округе нет монстров", 0);
+		return true;
+	}
+
+	if (*selected_target > 2304) // если "выбрали" не монстра
+	{
+		((int (__cdecl*)(const char *, char))ShowPopUpMessage)("Выбран несуществующий монстр", 0);
+		return true;
+	}
+
+	unsigned long hp = *(unsigned long*)(targets_hp_start + (28 + (468 * (*selected_target / 256)))); //А там жизни монстра... со всякими отступами от начал структур
+
+	if (hp <= 0)
+	{
+		((int (__cdecl*)(const char *, char))ShowPopUpMessage)("Цель мертва или еще не ходила", 0); //Если монстр не ходил, его жизни равны 0, что странно, но как сделали разрабы, так и сделали.
+		return true;
+	}
+	
+	std::string msg = "Жизни цели: ";
+	msg.append(TransformToSplittedValue(hp)); //разделяет число на тысячи, миллионы, короче, ставит пробелы через каждые три разряда
+
+	((int (__cdecl*)(const char *, char))ShowPopUpMessage)(msg.c_str(), 0); //с эти уже все ясно
+	((DWORD (__cdecl*)(int, int, char*, char*, int))(int*)0x00480D20)(CHAT_FLAG_MESSAGE, 0, "", (char*)msg.c_str(), 0); //а тут еще и вызовем функцию отображения в чате, а не только всплывашку
+}
